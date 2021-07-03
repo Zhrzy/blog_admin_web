@@ -18,12 +18,12 @@
                         <span class="title">博客后台管理系统</span>                                      
                     </div>               
                     <div class="">
-                        <el-form :model="loginData" :label-position="labelPosition" label-width="100px" class="login-form">
+                        <el-form ref="loginForm" :model="loginData" :label-position="labelPosition" label-width="100px" class="login-form">
                         <el-form-item label="用户名" >
-                            <el-input class="" paceholder="请输入用户名" v-model="loginData.uname"></el-input>
+                            <el-input class="" paceholder="请输入用户名" v-model="loginData.username"></el-input>
                         </el-form-item>
                         <el-form-item label="密码">
-                            <el-input placeholder="请输入密码" v-model="loginData.pword" show-password></el-input>
+                            <el-input placeholder="请输入密码" v-model="loginData.password" show-password></el-input>
                         </el-form-item>
                         </el-form>
                         <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
@@ -39,35 +39,36 @@
 </template>
 
 <script>   
-import {login} from "@/api/login";
+
 
 export default{
     data(){
          return{
             labelPosition:'right',
             loginData:{
-                uname:'',
-                pword:''
+                username:'',
+                password:''
              }
         }
     },
     methods:{
         handleLogin() {
-            login(this.loginData).then(response => {
-              if (response.code == "success") {
-                this.$message({
-                  type: "success",
-                  message: response.message
-                });
-                this.dialogVisible = false;
-                this.adminList();
-              } else {
-                this.$message({
-                  type: "error",
-                  message: response.message
-                });
+          alert(1)
+         this.$refs['loginForm'].validate((valid) => {
+            if (valid) {
+              this.loading = true
+              this.$store.dispatch('user/Login', this.loginData).then(() => {
+              this.$router.push({ path: this.redirect || '/dashboard' })
+              this.loading = false
+             }).catch(() => {
+                this.loading = false
+              })
               }
-            });
+            else{
+              console.log('error submit!!')
+               return false 
+            }
+          });
         }
     }
 }

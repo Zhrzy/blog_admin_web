@@ -17,7 +17,7 @@ export const routes=[
     },
     {
         path:'/dashboard',
-        component: () => import('@/view/dashboard'),
+        component: () => import('@/view/dashboard/index'),
 
     }
 ]
