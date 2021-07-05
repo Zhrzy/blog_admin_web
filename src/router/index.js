@@ -3,22 +3,30 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
+import Layout from '@/layout'
+
 // 定义路由
 export const routes=[
     {
-        path: '/',
+        path: '/login',
         component: () => import('@/view/login/index'),
         hidden: true
+    },
+    {
+        path: '/',
+        component: Layout,
+        redirect: '/dashboard',
+        children: [{
+            path: 'dashboard',
+            name: 'Dashboard',
+            component: () => import('@/view/dashboard/index'),
+            meta: { title: '首页', icon: 'dashboard' }
+          }]    
     },
     {
         path: '*',
         component: () => import('@/view/404'),
         hidden: true
-    },
-    {
-        path:'/dashboard',
-        component: () => import('@/view/dashboard/index'),
-
     }
 ]
 

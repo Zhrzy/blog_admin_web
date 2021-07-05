@@ -35,6 +35,7 @@
                 </el-card>
             </el-col>
         </el-row>
+        
     </div>  
 </template>
 
@@ -53,7 +54,7 @@ export default{
     },
     methods:{
         handleLogin() {
-          alert(1)
+        
          this.$refs['loginForm'].validate((valid) => {
             if (valid) {
               this.loading = true
