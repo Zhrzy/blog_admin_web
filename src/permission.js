@@ -27,7 +27,7 @@ router.beforeEach(async(to, from, next) => {
       NProgress.done()
       next()
     } else {
-      const hasGetUserInfo = '1'
+      const hasGetUserInfo =store.getters.name
       if (hasGetUserInfo) {
         next()
       } else {
@@ -35,10 +35,10 @@ router.beforeEach(async(to, from, next) => {
           // 获取用户信息
           await store.dispatch('user/getInfo')       
           //const roles = [store.getters.roles]   
-          await store.dispatch('user/getRouter')
-          const routerPath = await store.dispatch('permission/getRouterPathArray',store.getters.router) 
-          //var route = ['/test','/test/test1','/tpage','/tpage/tpage1','/tpage/tpage2']
-          const accessRoutes = await store.dispatch('permission/generateRoutes', routerPath)
+          //await store.dispatch('user/getRouter')
+          //const routerPath = await store.dispatch('permission/getRouterPathArray',store.getters.router) 
+          var route = ['/test','/test/test1','/tpage','/tpage/tpage1','/tpage/tpage2']
+          const accessRoutes = await store.dispatch('permission/generateRoutes', route)
           // for(var i = 0;i<accessRoutes.length;i++){
           //   console.log("打印路由========》"+accessRoutes[i].path);
           //   for(var j = 0 ;j<accessRoutes[i].children.length;j++){

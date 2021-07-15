@@ -71,15 +71,14 @@ const actions ={
 
   // get user info
   getInfo({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
+     return new Promise((resolve, reject) => {
+     getInfo(state.token).then(response => {
         const { data } = response
         if (!data) {
           reject('Verification failed, please Login again.')
-        }
-
+        }       
         const { name, avatar, roles} = data
-        commit('SET_ROLES',roles[0].roleName)
+        commit('SET_ROLES',roles)
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
         resolve(data)
