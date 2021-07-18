@@ -58,10 +58,10 @@ const actions ={
     //获取用户可访问的路由（菜单）
   getRouter({ commit }){
     return new Promise((resolve, reject)=>{
-      getRouter().then(response=>{
-        const {data}=response
-        const {router} =data
-        commit('SET_ROUTER',router)
+      getRouter().then(response => {
+        const { data } = response      
+        console.log(response)
+        commit('SET_ROUTER',data.routers)
         resolve()
       }).catch(error=>{
         reject(error)

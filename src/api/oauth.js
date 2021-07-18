@@ -16,3 +16,10 @@ export function getInfo(token) {
       params: { token }
     })
 }
+
+export function getRouter() {
+  return request({
+    url: '/admin/getRouter',
+    method: 'post'   
+  })
+}

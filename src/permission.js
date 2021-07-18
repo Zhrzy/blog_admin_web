@@ -34,11 +34,12 @@ router.beforeEach(async(to, from, next) => {
         try {
           // 获取用户信息
           await store.dispatch('user/getInfo')       
-          //const roles = [store.getters.roles]   
-          //await store.dispatch('user/getRouter')
-          //const routerPath = await store.dispatch('permission/getRouterPathArray',store.getters.router) 
-          var route = ['/test','/test/test1','/tpage','/tpage/tpage1','/tpage/tpage2']
-          const accessRoutes = await store.dispatch('permission/generateRoutes', route)
+          //const roles = []   
+          await store.dispatch('user/getRouter')
+          //alert(store.getters.roles)
+          const routerPath = await store.dispatch('permission/getRouterPathArray',store.getters.router)          
+          //var route = ['/test','/test/test1','/tpage','/tpage/tpage1','/tpage/tpage2']
+          const accessRoutes = await store.dispatch('permission/generateRoutes', routerPath)
           // for(var i = 0;i<accessRoutes.length;i++){
           //   console.log("打印路由========》"+accessRoutes[i].path);
           //   for(var j = 0 ;j<accessRoutes[i].children.length;j++){

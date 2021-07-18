@@ -85,10 +85,11 @@ const actions = {
     })
   },
   //获取vuex存储的store相关的数据，将其url遍历为一个数组
-  getRouterPathArray(router){
+  getRouterPathArray({ commit },router){
     const routerPath = []
-    return new Promise(resolve =>{
-      if(router.length == 0){
+    return new Promise(resolve =>{    
+     commit('SET_ROUTES', '1')
+      if(router.length == 0){     
         resolve(routerPath)
       }
       router.forEach(r=>{
