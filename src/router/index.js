@@ -32,26 +32,29 @@ export const constantRoutes=[
 
 export const asyncRoutes = [   
     {
-      path: '/tpage',
+      path: '/system',
       component: Layout,
-      name:'页面',
-      redirect:'/tpage/tpage1',
-      meta: { title: '页面', icon: 'form' },
+      name:'系统设置',
+      redirect:'/system/systemConfig',
+      meta: { title: '系统管理', icon: 'email' },
       children: [
         {
-          path: 'tpage1',
-          name: 'Tpage',
-          component: () => import('@/view/tpage/tpage1'),
-          meta: { title: '页面1', icon: 'form' }
+          path: 'systemConfig',
+          name: 'systemConfig',
+          component: () => import('@/view/system/systemConfig'),
+          meta: { title: '系统管理', icon: 'email' }
         },
         {
-          path: 'tpage2',
-          name: 'Tpage',
-          component: () => import('@/view/tpage/tpage2'),
-          meta: { title: '页面2', icon: 'form' }
+          path: 'netConfig',
+          name: 'netConfig',
+          component: () => import('@/view/system/netConfig'),
+          meta: { title: '网站管理', icon: 'form' }
         }
       ]
-    }
+    },
+    
+
+
   ]
 
 const createRouter = () => new Router({
