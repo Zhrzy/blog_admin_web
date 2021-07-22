@@ -118,6 +118,11 @@ $cursor: #fff;
 
   }
   .login-container{
+    height: 100%;
+    widows: 100%;
+    //background-color: rgb(11, 29, 56)
+  }
+  .login-container{
         .el-input {
     display: inline-block;
     height: 47px;
