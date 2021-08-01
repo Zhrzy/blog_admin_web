@@ -1,9 +1,16 @@
 import request from '@/utils/request'
 
-export function getDict(param) {
+export function getSysConfig() {
     return request({
-      url: '/sysconfig/getDict',
+      url: '/admin/sysConfig/getSystemConfig',
+      method: 'get'
+    })
+}
+
+export function editSysConfig(params) {
+    return request({
+      url: '/admin/sysConfig/editSystemConfig',
       method: 'post',
-      params: { param }
+      data:params
     })
 }
