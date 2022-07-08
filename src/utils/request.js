@@ -1,13 +1,13 @@
 import axios from 'axios'
-import {  Message } from 'element-ui'
+import {  Message,MessageBox } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: 'http://localhost:8080', // url = base url + request url
+  baseURL: '', // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  timeout: 4000 // request timeout
  
 })
 
@@ -38,6 +38,21 @@ service.interceptors.response.use(
     if (res.code === 'success' ) {
       return response.data
     } 
+    else if(res.code === '1004'){
+      MessageBox.confirm(
+        'token已过期，可以取消继续留在该页面，或者重新登录',
+        '确定登出',
+        {
+          confirmButtonText: '重新登录',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).then(() => {
+          store.dispatch('FedLogOut').then(() => {
+            location.reload() // 为了重新实例化vue-router对象 避免bug
+          })
+        })
+    }
     else{
       Message({
           message: res.message || 'Error',

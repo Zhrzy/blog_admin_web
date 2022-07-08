@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getDict(params) {
     return request({
-      url: '/admin/dictData/getDictByTypes',
+      url: process.env.VUE_APP_ADMIN_API+'/dictData/getDictByTypes',
       method: 'post',
       data: params
     })

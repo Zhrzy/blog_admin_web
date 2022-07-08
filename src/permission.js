@@ -7,6 +7,7 @@ import 'nprogress/nprogress.css' // progress bar style
 import { getToken } from '@/utils/auth' // get token from cookie
 import getPageTitle from '@/utils/get-title'
 
+
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 const whiteList = ['/login'] // no redirect whitelist
@@ -28,24 +29,18 @@ router.beforeEach(async(to, from, next) => {
       next()
     } else {
       const hasGetUserInfo =store.getters.name
-      if (hasGetUserInfo) {
+      if (hasGetUserInfo) {        
         next()
       } else {
         try {
           // 获取用户信息
           await store.dispatch('user/getInfo')       
-          //const roles = []   
           await store.dispatch('user/getRouter')
-          //alert(store.getters.roles)
+          await store.dispatch('settings/getIconType')
           const routerPath = await store.dispatch('permission/getRouterPathArray',store.getters.router)          
           //var route = ['/test','/test/test1','/tpage','/tpage/tpage1','/tpage/tpage2']
           const accessRoutes = await store.dispatch('permission/generateRoutes', routerPath)
-          // for(var i = 0;i<accessRoutes.length;i++){
-          //   console.log("打印路由========》"+accessRoutes[i].path);
-          //   for(var j = 0 ;j<accessRoutes[i].children.length;j++){
-          //     console.log("打印zi路由========》"+accessRoutes[i].children[j].path);
-          //   }
-          // }
+          localStorage.setItem("rou",accessRoutes)
           router.addRoutes(accessRoutes)
           next({ ...to, replace: true })
         } catch (error) {

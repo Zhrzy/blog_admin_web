@@ -3,7 +3,8 @@ import request from '@/utils/request'
 //登录认证
 export function login(params) {
     return request({
-      url: '/admin/login',
+      
+      url: process.env.VUE_APP_ADMIN_API+'/admin/login',
       method: 'post',
       params
     })
@@ -11,7 +12,7 @@ export function login(params) {
 
 export function getInfo(token) {
     return request({
-      url: '/admin/getInfo',
+      url: process.env.VUE_APP_ADMIN_API+'/admin/getInfo',
       method: 'post',
       params: { token }
     })
@@ -19,7 +20,14 @@ export function getInfo(token) {
 
 export function getRouter() {
   return request({
-    url: '/admin/getRouter',
+    url: process.env.VUE_APP_ADMIN_API+'/admin/getRouter',
+    method: 'post'   
+  })
+}
+
+export function logout() {
+  return request({
+    url: process.env.VUE_APP_ADMIN_API+'/admin/logout',
     method: 'post'   
   })
 }

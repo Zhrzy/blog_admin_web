@@ -3,7 +3,6 @@
     <el-form
       ref="loginForm"
       :model="loginData"
-      :rules="loginRules"
       class="login-form"
       auto-complete="on"
       label-position="left"
@@ -37,10 +36,16 @@
           <svg-icon icon-class="eye"/>
         </span>
       </el-form-item>
-      <el-form-item>
-       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+     <el-form-item>
+        <el-button
+          :loading="loading"
+          type="primary"
+          style="width:100%;"
+          @click.native.prevent="handleLogin"
+        >登 录</el-button>
       </el-form-item>
     </el-form>
+ 
 
 
   </div>
@@ -51,34 +56,13 @@
 export default {
   name: "Login",
   data() {
-    const validateUsername = (rule, value, callback) => {
-      callback();
-      // if (!isvalidUsername(value)) {
-      //   callback(new Error('请输入正确的用户名'))
-      // } else {
-      //   callback()
-      // }
-    };
-    const validatePass = (rule, value, callback) => {
-      if (value.length < 5) {
-        callback(new Error("密码不能小于5位"));
-      } else {
-        callback();
-      }
-    };
     return {
-      labelPosition:'right',
+      /* labelPosition:'right', */
       loginData:{
                username:'',
                password:''
       },
       webSiteName: "",
-      loginRules: {
-        username: [
-          { required: true, trigger: "blur", validator: validateUsername }
-        ],
-        password: [{ required: true, trigger: "blur", validator: validatePass }]
-      },
       loading: false,
       pwdType: "password",
       redirect: undefined,
@@ -112,11 +96,6 @@ export default {
                 }
               });
      },
-    inputFocus: function() {
-      this.$nextTick(x => {
-        this.$refs.userNameInput.focus()
-      })
-    },
     showPwd() {
       if (this.pwdType === "password") {
         this.pwdType = "";

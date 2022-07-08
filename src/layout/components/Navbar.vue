@@ -2,9 +2,18 @@
   <div class="navbar">
     <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
-    <breadcrumb class="breadcrumb-container" />
-
+    <breadcrumb class="breadcrumb-container" />    
     <div class="right-menu">
+      <el-tooltip content="门户页面" effect="dark" placement="bottom">
+          <Website id="website" class="right-menu-item" />
+      </el-tooltip>
+        <el-tooltip content="Gitee源码" effect="dark" placement="bottom">
+          <MoGuGit id="mogu-git" class="right-menu-item" />
+        </el-tooltip>
+      <el-tooltip effect="dark" content="换肤" placement="bottom">
+          <theme-picker class="theme-switch right-menu-item"></theme-picker>
+        </el-tooltip>
+
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar" class="user-avatar">
@@ -35,11 +44,18 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
-
+import Website from '@/components/MoGu/Website'
+import ThemePicker from "@/components/ThemePicker";
+import MoGuGit from '@/components/MoGu/Git'
+import {  Message } from 'element-ui'
 export default {
   components: {
+    Website,
     Breadcrumb,
-    Hamburger
+    Hamburger,
+    ThemePicker,
+    MoGuGit
+    
   },
   computed: {
     ...mapGetters([
@@ -51,9 +67,15 @@ export default {
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
     },
-    async logout() {
-      await this.$store.dispatch('user/logout')
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+     logout() {
+       this.$store.dispatch('user/logout')   
+
+       Message({
+          message: '您已成功退出！',
+          type: 'success',
+          duration: 1000
+         })     
+      this.$router.push('/login')
     }
   }
 }
@@ -100,7 +122,7 @@ export default {
       font-size: 18px;
       color: #5a5e66;
       vertical-align: text-bottom;
-
+      margin: 0 8px;
       &.hover-effect {
         cursor: pointer;
         transition: background .3s;
@@ -109,6 +131,9 @@ export default {
           background: rgba(0, 0, 0, .025)
         }
       }
+    }
+    .screenfull {
+      height: 20px;
     }
 
     .avatar-container {

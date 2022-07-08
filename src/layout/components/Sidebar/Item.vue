@@ -3,9 +3,10 @@ export default {
   name: 'MenuItem',
   functional: true,
   props: {
-    icon: {
-      type: String,
-      default: ''
+    icon:{},
+    iconType:{
+       type: String,
+       default: ''
     },
     title: {
       type: String,
@@ -13,11 +14,14 @@ export default {
     }
   },
   render(h, context) {
-    const { icon, title } = context.props
+    const { icon, title, iconType } = context.props
     const vnodes = []
-
-    if (icon) {
-      vnodes.push(<svg-icon icon-class={icon}/>)
+    
+    if (icon && iconType!='1') {
+      vnodes.push(<svg-icon icon-class={icon.icon}/>)
+    }
+    if (icon && iconType=='1') {
+      vnodes.push(<i class={icon.elementICon}/>)
     }
 
     if (title) {

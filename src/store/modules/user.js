@@ -1,5 +1,6 @@
 import { login, logout, getInfo, getRouter } from '@/api/oauth'
 import { getToken, setToken, removeToken } from '@/utils/auth'
+
 import { resetRouter } from '@/router'
 //本module用户用户状态管理 vuex实现
 
@@ -39,14 +40,14 @@ const mutations={
 //定义actions 可以是异步操作
 const actions ={
     Login({ commit }, user) {
-         const username = user.username.trim() 
+         const username = user.username.trim()  
          const password = user.password.trim() 
          return new Promise((resolve, reject) => {
            var params = new URLSearchParams()
              params.append('username', username)
              params.append('password', password)
            login(params).then(response => {
-             const { data } = response
+             const { data } = response 
              commit('SET_TOKEN', data.access_token) //调用mutation设置token，存入store
              setToken(data.access_token)  //cookie设置token
              resolve()
@@ -91,10 +92,8 @@ const actions ={
   // user logout
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
-      logout(state.token).then(() => {
-        removeToken() // must remove  token  first
-        resetRouter()
-        commit('RESET_STATE')
+      logout(state.token).then(() => {     
+        commit('SET_TOKEN','')        
         resolve()
       }).catch(error => {
         reject(error)
